@@ -2,7 +2,7 @@ export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 export ZSH="$HOME/.oh-my-zsh"
 ZSH_THEME="robbyrussell"
 plugins=(git web-search)
-source $ZSH/oh-my-zsh.sh
+# source $ZSH/oh-my-zsh.sh
 
 export EDITOR='nvim'
 
@@ -33,7 +33,7 @@ source <(fzf --zsh)
 alias gpush='f() { git add . && git commit -m "$1" && git push; }; f'
 eval "$(zoxide init --cmd cd zsh)"
 alias vim='nvim'
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+# eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 eval "$(starship init zsh)"
 alias ls="lsd"
 
