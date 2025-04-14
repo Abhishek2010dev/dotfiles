@@ -13,7 +13,7 @@ packages=(
   qt5-wayland
   qt6-wayland
   slurp
-  wofi
+  rofi-wayland
   stow
   waybar
   hyprpaper
