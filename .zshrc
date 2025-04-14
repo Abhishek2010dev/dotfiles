@@ -33,17 +33,13 @@ source <(fzf --zsh)
 alias gpush='f() { git add . && git commit -m "$1" && git push; }; f'
 eval "$(zoxide init --cmd cd zsh)"
 alias vim='nvim'
-# eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 eval "$(starship init zsh)"
 alias ls="lsd"
 
 export PATH="$PATH:$HOME/.local/bin"
 
-zinit ice as"command" from"gh-r" bpick"atuin-*.tar.gz" mv"atuin*/atuin -> atuin" \
-    atclone"./atuin init zsh > init.zsh; ./atuin gen-completions --shell zsh > _atuin" \
-    atpull"%atclone" src"init.zsh"
-zinit light atuinsh/atuin
 export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
 
 GOBIN=$HOME/.local/bin
 export PATH=$(go env GOPATH)/bin:$PATH
+
