@@ -43,3 +43,9 @@ export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
 GOBIN=$HOME/.local/bin
 export PATH=$(go env GOPATH)/bin:$PATH
 
+HISTFILE=~/.zsh_history
+HISTSIZE=10000
+SAVEHIST=10000
+setopt append_history
+setopt hist_ignore_dups
+setopt share_history
