@@ -17,7 +17,6 @@ packages=(
   stow
   waybar
   hyprpaper
-  firefox
   go
   hyprlock
   zsh
@@ -67,6 +66,7 @@ aur_packages=(
   hypridle
   wlogout
   hyprshot
+  brave-bin
 )
 
 echo "=== Installing AUR packages ==="
