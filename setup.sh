@@ -66,6 +66,7 @@ aur_packages=(
   swayosd-git
   hypridle
   wlogout
+  hyprshot
 )
 
 echo "=== Installing AUR packages ==="
