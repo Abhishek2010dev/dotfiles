@@ -67,6 +67,7 @@ aur_packages=(
   wlogout
   hyprshot
   brave-bin
+  clipse
 )
 
 echo "=== Installing AUR packages ==="
