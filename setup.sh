@@ -26,6 +26,7 @@ packages=(
   zoxide
   fzf
   ghostty
+  firefox
 )
 
 echo "=== Installing pacman packages ==="
@@ -66,7 +67,6 @@ aur_packages=(
   hypridle
   wlogout
   hyprshot
-  brave-bin
   clipse
 )
 
