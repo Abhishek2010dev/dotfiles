@@ -4,7 +4,6 @@ set -e
 
 # Pacman packages
 packages=(
-  dolphin
   dunst
   grim
   hyprland
@@ -26,6 +25,7 @@ packages=(
   tmux
   zoxide
   fzf
+  ghostty
 )
 
 echo "=== Installing pacman packages ==="
