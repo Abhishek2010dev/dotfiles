@@ -27,6 +27,7 @@ packages=(
   fzf
   ghostty
   firefox
+  darkmode
 )
 
 echo "=== Installing pacman packages ==="
