@@ -49,3 +49,9 @@ SAVEHIST=10000
 setopt append_history
 setopt hist_ignore_dups
 setopt share_history
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+
+export JAVA_HOME="$HOME/.sdkman/candidates/java/current/"
