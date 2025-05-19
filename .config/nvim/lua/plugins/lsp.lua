@@ -1,7 +1,7 @@
 return {
 	{
 		"williamboman/mason.nvim",
-		build = ":MasonUpdate", -- optional
+		build = ":MasonUpdate",
 		config = function()
 			require("mason").setup()
 		end,
@@ -9,17 +9,7 @@ return {
 
 	{
 		"WhoIsSethDaniel/mason-tool-installer.nvim",
-		dependencies = { "williamboman/mason.nvim" }, -- <- this is important
-		config = function()
-			require("mason-tool-installer").setup({
-				ensure_installed = {
-					"lua-language-server",
-					"stylua",
-					"prettier",
-					-- etc...
-				},
-			})
-		end,
+		dependencies = { "williamboman/mason.nvim" },
 	},
 	{
 		"nvim-treesitter/nvim-treesitter",
@@ -87,8 +77,7 @@ return {
 							event.buf
 						)
 					then
-						local highlight_augroup =
-							vim.api.nvim_create_augroup("kickstart-lsp-highlight", { clear = false })
+						local highlight_augroup = vim.api.nvim_create_augroup("custom-lsp-highlight", { clear = false })
 						vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
 							buffer = event.buf,
 							group = highlight_augroup,
@@ -100,10 +89,10 @@ return {
 							callback = vim.lsp.buf.clear_references,
 						})
 						vim.api.nvim_create_autocmd("LspDetach", {
-							group = vim.api.nvim_create_augroup("kickstart-lsp-detach", { clear = true }),
+							group = vim.api.nvim_create_augroup("custom-lsp-detach", { clear = true }),
 							callback = function(event2)
 								vim.lsp.buf.clear_references()
-								vim.api.nvim_clear_autocmds({ group = "kickstart-lsp-highlight", buffer = event2.buf })
+								vim.api.nvim_clear_autocmds({ group = "custom-lsp-highlight", buffer = event2.buf })
 							end,
 						})
 					end
@@ -156,7 +145,9 @@ return {
 
 			local ensure_installed = vim.tbl_keys(servers or {})
 			vim.list_extend(ensure_installed, {
+				"lua-language-server",
 				"stylua",
+				"prettier",
 			})
 			require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
