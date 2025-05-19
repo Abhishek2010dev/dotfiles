@@ -148,6 +148,8 @@ return {
 				"lua-language-server",
 				"stylua",
 				"prettier",
+				"gopls",
+				"staticcheck",
 			})
 			require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
@@ -239,6 +241,7 @@ return {
 			local lint = require("lint")
 			lint.linters_by_ft = {
 				markdown = { "markdownlint" },
+				go = { "staticcheck" },
 			}
 			local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })
 			vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
