@@ -55,3 +55,25 @@ export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
 
 export JAVA_HOME="$HOME/.sdkman/candidates/java/current/"
+
+# bun completions
+[ -s "/home/abhishek/.bun/_bun" ] && source "/home/abhishek/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
+
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
+
+
+# BEGIN opam configuration
+# This is useful if you're using opam as it adds:
+#   - the correct directories to the PATH
+#   - auto-completion for the opam binary
+# This section can be safely removed at any time if needed.
+[[ ! -r '/home/abhishek/.opam/opam-init/init.zsh' ]] || source '/home/abhishek/.opam/opam-init/init.zsh' > /dev/null 2> /dev/null
+# END opam configuration
