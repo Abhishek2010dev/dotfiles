@@ -1,13 +1,8 @@
 return {
-	"folke/tokyonight.nvim",
+	"catppuccin/nvim",
+	name = "catppuccin",
 	priority = 1000,
 	config = function()
-		require("tokyonight").setup({
-			styles = {
-				comments = { italic = false }, -- Disable italics in comments
-			},
-		})
-
-		vim.cmd.colorscheme("tokyonight-night")
+		vim.cmd.colorscheme("catppuccin-mocha")
 	end,
 }
