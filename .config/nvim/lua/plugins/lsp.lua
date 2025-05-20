@@ -220,8 +220,19 @@ return {
 			keymap = { preset = "default" },
 			appearance = { nerd_font_variant = "mono" },
 			completion = {
-				documentation = { auto_show = false, auto_show_delay_ms = 500 },
+				menu = {
+					border = "rounded",
+					winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:BlinkCmpMenuSelection,Search:None",
+				},
+				documentation = {
+					window = {
+						border = "rounded",
+						winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:BlinkCmpDocCursorLine,Search:None",
+					},
+					auto_show = false,
+				},
 			},
+			signature = { window = { border = "single" } },
 			sources = {
 				default = { "lsp", "path", "snippets", "lazydev" },
 				providers = {
