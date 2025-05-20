@@ -12,7 +12,6 @@ packages=(
   qt5-wayland
   qt6-wayland
   slurp
-  rofi-wayland
   stow
   waybar
   hyprpaper
@@ -26,8 +25,6 @@ packages=(
   zoxide
   fzf
   ghostty
-  firefox
-  darkmode
 )
 
 echo "=== Installing pacman packages ==="
@@ -69,6 +66,9 @@ aur_packages=(
   wlogout
   hyprshot
   clipse
+  zen-browser-bin
+  tofi
+  ags-hyprpanel-git
 )
 
 echo "=== Installing AUR packages ==="
