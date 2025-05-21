@@ -18,6 +18,7 @@ return {
 		opts = {
 			auto_install = true,
 			highlight = {
+				ensure_installed = { "http", "graphql" },
 				enable = true,
 				additional_vim_regex_highlighting = { "ruby" },
 			},
