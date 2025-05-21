@@ -43,7 +43,7 @@ return {
 		},
 		config = function()
 			vim.api.nvim_create_autocmd("LspAttach", {
-				group = vim.api.nvim_create_augroup("kickstart-lsp-attach", { clear = true }),
+				group = vim.api.nvim_create_augroup("custom-lsp-attach", { clear = true }),
 				callback = function(event)
 					local map = function(keys, func, desc, mode)
 						mode = mode or "n"
@@ -141,6 +141,15 @@ return {
 						},
 					},
 				},
+				gopls = {
+					settings = {
+						gofumpt = true,
+						analyses = {
+							unusedparams = true,
+						},
+						staticcheck = true,
+					},
+				},
 			}
 
 			local ensure_installed = vim.tbl_keys(servers or {})
@@ -148,6 +157,7 @@ return {
 				"lua-language-server",
 				"stylua",
 				"prettier",
+				"goimports",
 				"gopls",
 				"staticcheck",
 			})
@@ -195,6 +205,7 @@ return {
 			end,
 			formatters_by_ft = {
 				lua = { "stylua" },
+				go = { "goimports" },
 			},
 		},
 	},
