@@ -159,6 +159,8 @@ return {
 				"stylua",
 				"prettier",
 				"goimports",
+				"markdownlint-cli2",
+				"markdown-toc",
 				"gopls",
 				"staticcheck",
 				"jdtls",
@@ -208,6 +210,8 @@ return {
 			formatters_by_ft = {
 				lua = { "stylua" },
 				go = { "goimports" },
+				["markdown"] = { "prettier", "markdownlint-cli2", "markdown-toc" },
+				["markdown.mdx"] = { "prettier", "markdownlint-cli2", "markdown-toc" },
 			},
 		},
 	},
@@ -242,7 +246,7 @@ return {
 						border = "rounded",
 						winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:BlinkCmpDocCursorLine,Search:None",
 					},
-					auto_show = false,
+					auto_show = true,
 				},
 			},
 			signature = { window = { border = "single" } },
@@ -264,7 +268,7 @@ return {
 		config = function()
 			local lint = require("lint")
 			lint.linters_by_ft = {
-				markdown = { "markdownlint" },
+				markdown = { "markdownlint-cli2" },
 				go = { "staticcheck" },
 			}
 			local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })
