@@ -151,6 +151,7 @@ return {
 						staticcheck = true,
 					},
 				},
+				rust_analyzer = { enabled = false },
 			}
 
 			local ensure_installed = vim.tbl_keys(servers or {})
@@ -164,6 +165,7 @@ return {
 				"gopls",
 				"staticcheck",
 				"jdtls",
+				"rust-analyzer",
 			})
 			require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
