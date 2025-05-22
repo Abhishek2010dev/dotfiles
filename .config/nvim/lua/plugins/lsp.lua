@@ -11,6 +11,7 @@ return {
 		"WhoIsSethDaniel/mason-tool-installer.nvim",
 		dependencies = { "williamboman/mason.nvim" },
 	},
+
 	{
 		"nvim-treesitter/nvim-treesitter",
 		build = ":TSUpdate",
@@ -39,8 +40,8 @@ return {
 		dependencies = {
 			"mason-org/mason-lspconfig.nvim",
 			"WhoIsSethDaniel/mason-tool-installer.nvim",
+			"hrsh7th/nvim-cmp",
 			{ "j-hui/fidget.nvim", opts = {} },
-			"saghen/blink.cmp",
 		},
 		config = function()
 			vim.api.nvim_create_autocmd("LspAttach", {
@@ -130,7 +131,7 @@ return {
 				},
 			})
 
-			local capabilities = require("blink.cmp").get_lsp_capabilities()
+			local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 			local servers = {
 				lua_ls = {
@@ -169,6 +170,7 @@ return {
 			})
 			require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
+
 			require("mason-lspconfig").setup({
 				ensure_installed = {},
 				automatic_installation = false,
@@ -179,108 +181,6 @@ return {
 						require("lspconfig")[server_name].setup(server)
 					end,
 				},
-			})
-		end,
-	},
-	{
-		"stevearc/conform.nvim",
-		event = { "BufWritePre" },
-		cmd = { "ConformInfo" },
-		keys = {
-			{
-				"<leader>f",
-				function()
-					require("conform").format({ async = true, lsp_format = "fallback" })
-				end,
-				mode = "",
-				desc = "[F]ormat buffer",
-			},
-		},
-		opts = {
-			notify_on_error = false,
-			format_on_save = function(bufnr)
-				local disable_filetypes = { c = true, cpp = true }
-				if disable_filetypes[vim.bo[bufnr].filetype] then
-					return nil
-				else
-					return {
-						timeout_ms = 500,
-						lsp_format = "fallback",
-					}
-				end
-			end,
-			formatters_by_ft = {
-				lua = { "stylua" },
-				go = { "goimports" },
-				["markdown"] = { "prettier", "markdownlint-cli2", "markdown-toc" },
-				["markdown.mdx"] = { "prettier", "markdownlint-cli2", "markdown-toc" },
-			},
-		},
-	},
-	{
-		"saghen/blink.cmp",
-		event = "VimEnter",
-		version = "1.*",
-		dependencies = {
-			{
-				"L3MON4D3/LuaSnip",
-				version = "2.*",
-				build = (function()
-					if vim.fn.has("win32") == 1 or vim.fn.executable("make") == 0 then
-						return
-					end
-					return "make install_jsregexp"
-				end)(),
-				opts = {},
-			},
-			"folke/lazydev.nvim",
-		},
-		opts = {
-			keymap = { preset = "default" },
-			appearance = { nerd_font_variant = "mono" },
-			completion = {
-				menu = {
-					border = "rounded",
-					winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:BlinkCmpMenuSelection,Search:None",
-				},
-				documentation = {
-					window = {
-						border = "rounded",
-						winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:BlinkCmpDocCursorLine,Search:None",
-					},
-					auto_show = true,
-				},
-			},
-			signature = { window = { border = "single" } },
-			sources = {
-				default = { "lsp", "path", "snippets", "lazydev" },
-				providers = {
-					lazydev = { module = "lazydev.integrations.blink", score_offset = 100 },
-				},
-			},
-			snippets = { preset = "luasnip" },
-			fuzzy = { implementation = "lua" },
-			signature = { enabled = true },
-		},
-	},
-
-	{ -- Linting
-		"mfussenegger/nvim-lint",
-		event = { "BufReadPre", "BufNewFile" },
-		config = function()
-			local lint = require("lint")
-			lint.linters_by_ft = {
-				markdown = { "markdownlint-cli2" },
-				go = { "staticcheck" },
-			}
-			local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })
-			vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
-				group = lint_augroup,
-				callback = function()
-					if vim.bo.modifiable then
-						lint.try_lint()
-					end
-				end,
 			})
 		end,
 	},
