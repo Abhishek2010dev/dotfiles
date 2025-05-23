@@ -22,9 +22,9 @@ return {
 		require("luasnip.loaders.from_vscode").lazy_load()
 
 		cmp.setup({
-			experimental = {
-				ghost_text = true,
-			},
+			-- experimental = {
+			-- 	ghost_text = true,
+			-- },
 			sources = {
 				{ name = "lazydev", group_index = 0 },
 				{ name = "nvim_lsp" },

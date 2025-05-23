@@ -41,6 +41,7 @@ return {
 			"mason-org/mason-lspconfig.nvim",
 			"WhoIsSethDaniel/mason-tool-installer.nvim",
 			"hrsh7th/nvim-cmp",
+			"JavaHello/spring-boot.nvim",
 			{ "j-hui/fidget.nvim", opts = {} },
 		},
 		config = function()
@@ -132,7 +133,6 @@ return {
 			})
 
 			local capabilities = require("cmp_nvim_lsp").default_capabilities()
-
 			local servers = {
 				lua_ls = {
 					settings = {
@@ -169,7 +169,6 @@ return {
 				"rust-analyzer",
 			})
 			require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
-
 
 			require("mason-lspconfig").setup({
 				ensure_installed = {},
