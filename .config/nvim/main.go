@@ -1,4 +1,0 @@
-package nvim
-
-func main() {
-}
