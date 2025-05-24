@@ -167,6 +167,8 @@ return {
 				"staticcheck",
 				"jdtls",
 				"rust-analyzer",
+				"typescript-language-server",
+				"eslint-lsp",
 			})
 			require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
