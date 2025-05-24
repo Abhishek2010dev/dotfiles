@@ -455,5 +455,14 @@
   "theme.osd.border.color": "#8ff0a4",
   "bar.workspaces.show_icons": false,
   "wallpaper.enable": true,
-  "menus.clock.time.military": false
+  "menus.clock.time.military": false,
+  "theme.bar.menus.enableShadow": false,
+  "theme.bar.buttons.workspaces.enableBorder": false,
+  "bar.workspaces.show_numbered": false,
+  "bar.workspaces.workspaceMask": false,
+  "bar.workspaces.showWsIcons": false,
+  "bar.workspaces.showApplicationIcons": false,
+  "bar.battery.hideLabelWhenFull": false,
+  "theme.bar.buttons.battery.enableBorder": false,
+  "bar.workspaces.monitorSpecific": true
 }
