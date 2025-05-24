@@ -1,0 +1,4 @@
+package nvim
+
+func main() {
+}
