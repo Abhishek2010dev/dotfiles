@@ -28,6 +28,8 @@ return {
 		formatters_by_ft = {
 			lua = { "stylua" },
 			go = { "goimports" },
+			html = { "prettier" },
+			css = { "prettier" },
 			javascript = { "prettier" },
 			typescript = { "prettier" },
 			["markdown"] = { "prettier", "markdownlint-cli2", "markdown-toc" },

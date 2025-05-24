@@ -167,6 +167,8 @@ return {
 				"staticcheck",
 				"jdtls",
 				"rust-analyzer",
+				"html-lsp",
+				"css-lsp",
 				"typescript-language-server",
 				"eslint-lsp",
 			})
