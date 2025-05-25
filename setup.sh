@@ -24,7 +24,6 @@ packages=(
   tmux
   zoxide
   fzf
-  ghostty
 )
 
 echo "=== Installing pacman packages ==="
