@@ -1,4 +1,4 @@
-font_size 15.0
+font_size 16.0
 window_padding_width 8
 font_family      JetBrainsMono Nerd Font
 italic_font      auto
@@ -11,6 +11,6 @@ confirm_os_window_close 0
 
 
 # BEGIN_KITTY_THEME
-# Tokyo Night
+# Catppuccin-Mocha
 include current-theme.conf
 # END_KITTY_THEME
