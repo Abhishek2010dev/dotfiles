@@ -6,10 +6,13 @@ padding-left = 33%
 padding-top = 33%
 result-spacing = 25
 num-results = 5
+
 font = JetBrainsMono Nerd Font
 font-size = 24
+
+text-color = #4e4e5f
+
 prompt-text = " : "
+
 background-color = #11111bd9
-text-color = #cdd6f4
-prompt-color = #f38ba8
-selection-color = #f9e2af
+selection-color = #83A4E7
