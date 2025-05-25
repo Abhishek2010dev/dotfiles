@@ -7,7 +7,6 @@ packages=(
   dunst
   grim
   hyprland
-  kitty
   polkit-kde-agent
   qt5-wayland
   qt6-wayland
@@ -68,6 +67,7 @@ aur_packages=(
   zen-browser-bin
   tofi
   ags-hyprpanel-git
+  wezterm-git
 )
 
 echo "=== Installing AUR packages ==="
