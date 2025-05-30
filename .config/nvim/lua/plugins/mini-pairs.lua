@@ -8,7 +8,4 @@ return {
     skip_unbalanced = true,
     markdown = true,
   },
-  config = function(_, opts)
-    LazyVim.mini.pairs(opts)
-  end,
 }
