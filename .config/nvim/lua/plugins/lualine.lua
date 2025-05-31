@@ -160,7 +160,7 @@ return {
           return vim.b.trouble_lualine ~= false and symbols.has()
         end,
       })
-      require("lualine").setup() -- Re-apply config with trouble integration
+      require("lualine").setup {} -- Re-apply config with trouble integration
     end
   end,
 }
