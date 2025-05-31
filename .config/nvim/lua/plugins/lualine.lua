@@ -34,7 +34,7 @@ return {
           theme = 'auto', -- Use Neovim's colorscheme
           globalstatus = vim.o.laststatus == 3, -- Use global statusline if laststatus=3
           disabled_filetypes = {
-            statusline = { 'dashboard', 'alpha', 'starter' }, -- Adjust for Kickstart's dashboard
+              disabled_filetypes = { statusline = { "dashboard", "alpha", "ministarter", "snacks_dashboard" } },
           },
           component_separators = { left = '', right = '' },
           section_separators = { left = '', right = '' },
