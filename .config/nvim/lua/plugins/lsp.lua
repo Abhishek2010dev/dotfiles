@@ -15,6 +15,7 @@ return {
         },
       },
     },
+   'saghen/blink.cmp',
   },
   config = function()
     vim.diagnostic.config {
@@ -59,7 +60,7 @@ return {
         local client = vim.lsp.get_client_by_id(event.data.client_id)
 
         if client and client_supports_method(client, vim.lsp.protocol.Methods.textDocument_documentHighlight, event.buf) then
-          local highlight_augroup = vim.api.nvim_create_augroup("kickstart-lsp-highlight", { clear = false })
+          local highlight_augroup = vim.api.nvim_create_augroup("custom-lsp-highlight", { clear = false })
 
           vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
             buffer = event.buf,
@@ -74,10 +75,10 @@ return {
           })
 
           vim.api.nvim_create_autocmd("LspDetach", {
-            group = vim.api.nvim_create_augroup("kickstart-lsp-detach", { clear = true }),
+            group = vim.api.nvim_create_augroup("custom-lsp-detach", { clear = true }),
             callback = function(ev)
               vim.lsp.buf.clear_references()
-              vim.api.nvim_clear_autocmds { group = "kickstart-lsp-highlight", buffer = ev.buf }
+              vim.api.nvim_clear_autocmds { group = "custom-lsp-highlight", buffer = ev.buf }
             end,
           })
         end
@@ -90,10 +91,10 @@ return {
 
         map("<leader>cl", function() Snacks.picker.lsp_config() end, "LSP Info")
         map("gd", function() Snacks.picker.lsp_definitions() end, "Goto Definition")
-        map("gr", function() Snacks.picker.lsp_references() end, "References", "n", { nowait = true })
+        map("gr", function() Snacks.picker.lsp_references() end, "References", { "n" })
         map("gI", function() Snacks.picker.lsp_implementations() end, "Goto Implementation")
         map("gy", function() Snacks.picker.lsp_type_definitions() end, "Goto T[y]pe Definition")
-        map("gD", function() Snacks.picker.lsp_declarations() end,  "Goto Declaration")
+        map("gD", function() Snacks.picker.lsp_declarations() end, "Goto Declaration")
         map("K", vim.lsp.buf.hover, "Hover")
         map("gK", vim.lsp.buf.signature_help, "Signature Help")
         map("<C-k>", vim.lsp.buf.signature_help, "Signature Help", "i")
@@ -103,10 +104,11 @@ return {
         map("<leader>cR", function() Snacks.rename.rename_file() end, "Rename File")
         map("<leader>cr", vim.lsp.buf.rename, "Rename")
         map("<leader>cA", vim.lsp.buf.code_action, "Source Action")
-   map("<a-n>", function() Snacks.words.jump(vim.v.count1, true) end, "Next Reference")
+        map("<a-n>", function() Snacks.words.jump(vim.v.count1, true) end, "Next Reference")
         map("<a-p>", function() Snacks.words.jump(-vim.v.count1, true) end, "Prev Reference")
         map("<leader>cd", vim.diagnostic.open_float, "Show Diagnostic")
-        map("<leader>cq", vim.diagnostic.setloclist, "Diagnostics to Location List")      end,
+        map("<leader>cq", vim.diagnostic.setloclist, "Diagnostics to Location List")
+      end,
     })
 
     require("mason").setup({
@@ -118,7 +120,26 @@ return {
           package_uninstalled = "✗",
         },
       },
+      install_root_dir = vim.fn.stdpath("data") .. "/mason",
+      PATH = "prepend",
+      log_level = vim.log.levels.INFO,
+      max_concurrent_installers = 4,
+      registries = {
+        "github:mason-org/mason-registry",
+      },
+      providers = {
+        "mason.providers.registry-api",
+        "mason.providers.client",
+      },
+      github = {
+        download_url_template = "https://github.com/%s/releases/download/%s/%s",
+      },
+      pip = {
+        install_args = {},
+      },
     })
+
+     local capabilities = require('blink.cmp').get_lsp_capabilities()
 
     local server = {
       lua_ls = {
@@ -139,12 +160,14 @@ return {
     }
 
     require("mason-lspconfig").setup({
+     automatic_enable = true,
       ensure_installed = { "lua_ls", "rust_analyzer" },
       automatic_installation = true,
-      automatic_enable = true,
       handlers = {
         function(server_name)
-          require("lspconfig")[server_name].setup(server[server_name] or {})
+            local server = servers[server_name] or {}
+            server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
+            require('lspconfig')[server_name].setup(server)
         end,
       },
     })
