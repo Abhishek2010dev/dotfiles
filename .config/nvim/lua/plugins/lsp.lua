@@ -141,7 +141,7 @@ return {
 
      local capabilities = require('blink.cmp').get_lsp_capabilities()
 
-    local server = {
+    local servers = {
       lua_ls = {
         settings = {
           Lua = {
@@ -156,12 +156,15 @@ return {
           },
         },
       },
-      rust_analyzer = {},
     }
 
     require("mason-lspconfig").setup({
-     automatic_enable = true,
-      ensure_installed = { "lua_ls", "rust_analyzer" },
+      automatic_enable = {
+     exclude = {
+            "rust_analyzer",
+        }
+     },
+      ensure_installed = { "lua_ls", "rust_analyzer", },
       automatic_installation = true,
       handlers = {
         function(server_name)
