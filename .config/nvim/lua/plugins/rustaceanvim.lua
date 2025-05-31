@@ -1,15 +1,15 @@
 return {
   "mrcjkb/rustaceanvim",
-  version = vim.fn.has("nvim-0.10.0") == 0 and "^4" or nil,
+  version = vim.fn.has "nvim-0.10.0" == 0 and "^4" or nil,
   ft = { "rust" },
   opts = {
     server = {
       on_attach = function(_, bufnr)
         vim.keymap.set("n", "<leader>cR", function()
-          vim.cmd.RustLsp("codeAction")
+          vim.cmd.RustLsp "codeAction"
         end, { desc = "Code Action", buffer = bufnr })
         vim.keymap.set("n", "<leader>dr", function()
-          vim.cmd.RustLsp("debuggables")
+          vim.cmd.RustLsp "debuggables"
         end, { desc = "Rust Debuggables", buffer = bufnr })
       end,
       default_settings = {
@@ -49,10 +49,10 @@ return {
         },
       },
     },
-   },
+  },
   config = function(_, opts)
     -- Check if rust-analyzer is installed
-    if vim.fn.executable("rust-analyzer") == 0 then
+    if vim.fn.executable "rust-analyzer" == 0 then
       vim.notify(
         "**rust-analyzer** not found in PATH, please install it.\nhttps://rust-analyzer.github.io/",
         vim.log.levels.ERROR,

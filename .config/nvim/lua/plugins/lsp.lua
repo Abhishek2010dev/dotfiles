@@ -3,6 +3,7 @@ return {
   dependencies = {
     "williamboman/mason.nvim",
     "williamboman/mason-lspconfig.nvim",
+    "WhoIsSethDaniel/mason-tool-installer.nvim",
     { "j-hui/fidget.nvim", opts = {} },
     {
       "folke/lazydev.nvim",
@@ -15,7 +16,7 @@ return {
         },
       },
     },
-   'saghen/blink.cmp',
+    "saghen/blink.cmp",
   },
   config = function()
     vim.diagnostic.config {
@@ -59,7 +60,9 @@ return {
 
         local client = vim.lsp.get_client_by_id(event.data.client_id)
 
-        if client and client_supports_method(client, vim.lsp.protocol.Methods.textDocument_documentHighlight, event.buf) then
+        if
+          client and client_supports_method(client, vim.lsp.protocol.Methods.textDocument_documentHighlight, event.buf)
+        then
           local highlight_augroup = vim.api.nvim_create_augroup("custom-lsp-highlight", { clear = false })
 
           vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
@@ -89,29 +92,47 @@ return {
           end, "Toggle Inlay Hints")
         end
 
-        map("<leader>cl", function() Snacks.picker.lsp_config() end, "LSP Info")
-        map("gd", function() Snacks.picker.lsp_definitions() end, "Goto Definition")
-        map("gr", function() Snacks.picker.lsp_references() end, "References", { "n" })
-        map("gI", function() Snacks.picker.lsp_implementations() end, "Goto Implementation")
-        map("gy", function() Snacks.picker.lsp_type_definitions() end, "Goto T[y]pe Definition")
-        map("gD", function() Snacks.picker.lsp_declarations() end, "Goto Declaration")
+        map("<leader>cl", function()
+          Snacks.picker.lsp_config()
+        end, "LSP Info")
+        map("gd", function()
+          Snacks.picker.lsp_definitions()
+        end, "Goto Definition")
+        map("gr", function()
+          Snacks.picker.lsp_references()
+        end, "References", { "n" })
+        map("gI", function()
+          Snacks.picker.lsp_implementations()
+        end, "Goto Implementation")
+        map("gy", function()
+          Snacks.picker.lsp_type_definitions()
+        end, "Goto T[y]pe Definition")
+        map("gD", function()
+          Snacks.picker.lsp_declarations()
+        end, "Goto Declaration")
         map("K", vim.lsp.buf.hover, "Hover")
         map("gK", vim.lsp.buf.signature_help, "Signature Help")
         map("<C-k>", vim.lsp.buf.signature_help, "Signature Help", "i")
         map("<leader>ca", vim.lsp.buf.code_action, "Code Action", { "n", "v" })
         map("<leader>cc", vim.lsp.codelens.run, "Run Codelens", { "n", "v" })
         map("<leader>cC", vim.lsp.codelens.refresh, "Refresh Codelens")
-        map("<leader>cR", function() Snacks.rename.rename_file() end, "Rename File")
+        map("<leader>cR", function()
+          Snacks.rename.rename_file()
+        end, "Rename File")
         map("<leader>cr", vim.lsp.buf.rename, "Rename")
         map("<leader>cA", vim.lsp.buf.code_action, "Source Action")
-        map("<a-n>", function() Snacks.words.jump(vim.v.count1, true) end, "Next Reference")
-        map("<a-p>", function() Snacks.words.jump(-vim.v.count1, true) end, "Prev Reference")
+        map("<a-n>", function()
+          Snacks.words.jump(vim.v.count1, true)
+        end, "Next Reference")
+        map("<a-p>", function()
+          Snacks.words.jump(-vim.v.count1, true)
+        end, "Prev Reference")
         map("<leader>cd", vim.diagnostic.open_float, "Show Diagnostic")
         map("<leader>cq", vim.diagnostic.setloclist, "Diagnostics to Location List")
       end,
     })
 
-    require("mason").setup({
+    require("mason").setup {
       ui = {
         border = "rounded",
         icons = {
@@ -120,7 +141,7 @@ return {
           package_uninstalled = "✗",
         },
       },
-      install_root_dir = vim.fn.stdpath("data") .. "/mason",
+      install_root_dir = vim.fn.stdpath "data" .. "/mason",
       PATH = "prepend",
       log_level = vim.log.levels.INFO,
       max_concurrent_installers = 4,
@@ -137,9 +158,9 @@ return {
       pip = {
         install_args = {},
       },
-    })
+    }
 
-     local capabilities = require('blink.cmp').get_lsp_capabilities()
+    local capabilities = require("blink.cmp").get_lsp_capabilities()
 
     local servers = {
       lua_ls = {
@@ -158,22 +179,29 @@ return {
       },
     }
 
-    require("mason-lspconfig").setup({
+    local ensure_installed = vim.tbl_keys(servers or {})
+    vim.list_extend(ensure_installed, {
+      "stylua",
+      "lua_ls",
+      "rust_analyzer",
+    })
+    require("mason-tool-installer").setup { ensure_installed = ensure_installed }
+
+    require("mason-lspconfig").setup {
       automatic_enable = {
-     exclude = {
-            "rust_analyzer",
-        }
-     },
-      ensure_installed = { "lua_ls", "rust_analyzer", },
+        exclude = {
+          "rust_analyzer",
+        },
+      },
+      ensure_installed = {},
       automatic_installation = true,
       handlers = {
         function(server_name)
-            local server = servers[server_name] or {}
-            server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
-            require('lspconfig')[server_name].setup(server)
+          local server = servers[server_name] or {}
+          server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
+          require("lspconfig")[server_name].setup(server)
         end,
       },
-    })
+    }
   end,
 }
-

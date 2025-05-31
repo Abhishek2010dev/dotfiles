@@ -2,11 +2,11 @@ return {
   "nvim-treesitter/nvim-treesitter",
   version = false, -- last release is way too old and doesn't work on Windows
   build = ":TSUpdate",
-  event = {  "VeryLazy" },
+  event = { "VeryLazy" },
   lazy = vim.fn.argc(-1) == 0, -- load treesitter early when opening a file from the cmdline
   init = function(plugin)
     require("lazy.core.loader").add_to_rtp(plugin)
-    require("nvim-treesitter.query_predicates")
+    require "nvim-treesitter.query_predicates"
   end,
   cmd = { "TSUpdateSync", "TSUpdate", "TSInstall" },
   keys = {
@@ -24,7 +24,7 @@ return {
       "bash",
       "c",
       "diff",
-       "go",
+      "go",
       "html",
       "javascript",
       "jsdoc",
