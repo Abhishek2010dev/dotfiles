@@ -1,5 +1,7 @@
 return {
   "folke/snacks.nvim", 
+  priority = 1000,
+  lazy = false,
   opts = {
     indent = { enabled = true },
     input = { enabled = true },
@@ -9,6 +11,7 @@ return {
     statuscolumn = { enabled = false }, -- we set this in options.lua
     toggle = {enabled = true},
     words = { enabled = true },
+    dashboard = { enabled = true },
   },
   keys = {
     { "<leader>n", function()
@@ -19,5 +22,8 @@ return {
       end
     end, desc = "Notification History" },
     { "<leader>un", function() Snacks.notifier.hide() end, desc = "Dismiss All Notifications" },
+     { "<leader>.",  function() Snacks.scratch() end, desc = "Toggle Scratch Buffer" },
+    { "<leader>S",  function() Snacks.scratch.select() end, desc = "Select Scratch Buffer" },
+    { "<leader>dps", function() Snacks.profiler.scratch() end, desc = "Profiler Scratch Buffer" },
   },
 }
