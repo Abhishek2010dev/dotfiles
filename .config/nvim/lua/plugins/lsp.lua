@@ -197,6 +197,7 @@ return {
 			"stylua",
 			"lua_ls",
 			"rust_analyzer",
+			"taplo",
 		})
 		require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 

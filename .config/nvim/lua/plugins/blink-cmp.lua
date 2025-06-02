@@ -23,7 +23,6 @@ return {
 		"folke/lazydev.nvim",
 		{ "nvim-tree/nvim-web-devicons", opts = {} },
 	},
-	build = "cargo build --release",
 
 	version = "1.*",
 	---@module 'blink.cmp'
@@ -45,7 +44,7 @@ return {
 		},
 		snippets = { preset = "luasnip" },
 
-		fuzzy = { implementation = "prefer_rust_with_warning" },
+		fuzzy = { implementation = "lua" },
 
 		signature = { enabled = true },
 	},
