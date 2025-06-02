@@ -17,6 +17,7 @@ return {
 	---@type TSConfig
 	---@diagnostic disable-next-line: missing-fields
 	opts = {
+		ensure_installed = { "http", "graphql" },
 		auto_install = true,
 		highlight = { enable = true },
 		indent = { enable = true },
