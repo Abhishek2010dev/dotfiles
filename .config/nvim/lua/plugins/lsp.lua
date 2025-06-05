@@ -2,8 +2,8 @@ return {
 	"neovim/nvim-lspconfig",
 	dependencies = {
 		"williamboman/mason.nvim",
-		"williamboman/mason-lspconfig.nvim",
 		"WhoIsSethDaniel/mason-tool-installer.nvim",
+		"mason-org/mason-lspconfig.nvim",
 		{ "j-hui/fidget.nvim", opts = {} },
 		{
 			"folke/lazydev.nvim",
@@ -190,25 +190,64 @@ return {
 					},
 				},
 			},
+			gopls = {
+				settings = {
+					gopls = {
+						codelenses = {
+							gc_details = false,
+							generate = true,
+							regenerate_cgo = true,
+							run_govulncheck = true,
+							test = true,
+							tidy = true,
+							upgrade_dependency = true,
+							vendor = true,
+						},
+						hints = {
+							assignVariableTypes = true,
+							compositeLiteralFields = true,
+							compositeLiteralTypes = true,
+							constantValues = true,
+							functionTypeParameters = true,
+							parameterNames = true,
+							rangeVariableTypes = true,
+						},
+						analyses = {
+							nilness = true,
+							unusedparams = true,
+							unusedwrite = true,
+							useany = true,
+						},
+						usePlaceholders = true,
+						completeUnimported = true,
+						staticcheck = true,
+						directoryFilters = { "-.git", "-.vscode", "-.idea", "-.vscode-test", "-node_modules" },
+						semanticTokens = true,
+					},
+				},
+			},
 		}
 
-		local ensure_installed = vim.tbl_keys(servers or {})
-		vim.list_extend(ensure_installed, {
+		local ensure_installed_tools = vim.tbl_keys(servers or {})
+		vim.list_extend(ensure_installed_tools, {
 			"stylua",
 			"lua_ls",
 			"rust_analyzer",
 			"taplo",
+			"buf",
+			"gopls",
+			"goimports",
+			"gofumpt",
 		})
-		require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
-
+		require("mason-tool-installer").setup({ ensure_installed = ensure_installed_tools })
 		require("mason-lspconfig").setup({
+			ensure_installed = {}, -- explicitly set to an empty table (Kickstart populates installs via mason-tool-installer)
+			automatic_installation = false,
 			automatic_enable = {
 				exclude = {
 					"rust_analyzer",
 				},
 			},
-			ensure_installed = {},
-			automatic_installation = true,
 			handlers = {
 				function(server_name)
 					local server = servers[server_name] or {}
